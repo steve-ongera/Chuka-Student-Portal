@@ -4,20 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;  // Add this import
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
+    
     use AuthenticatesUsers;
 
     /**
@@ -26,6 +18,12 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+    // Fix the type-hint to use the correct Request class
+    protected function loggedOut(Request $request)  // Use Illuminate\Http\Request
+    {
+        return redirect()->route('login');
+    }
 
     /**
      * Create a new controller instance.
